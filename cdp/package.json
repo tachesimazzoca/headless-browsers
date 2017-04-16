@@ -5,6 +5,7 @@
   "devDependencies": {
     "chrome-remote-interface": "0.19.0",
     "command-line-args": "4.0.2",
+    "path": "0.12.7",
     "jshint": "2.9.4"
   }
 }

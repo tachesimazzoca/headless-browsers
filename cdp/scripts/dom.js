@@ -7,7 +7,7 @@ const optionDefinitions = [
 ];
 
 var options = commandLineArgs(optionDefinitions, { partial: true } );
-var argv = options._unknown;
+var argv = options._unknown || [];
 
 if (argv.length !== 2) {
   console.log('Usage: node dom.js --host <localhost> --port <9222> <target> <master-password>');
@@ -48,8 +48,13 @@ CDP(options, (client) => {
               "document.querySelector('#jsGeneratedPasswordInput').value;"
   
         });
+
       }).then((res) => {
         console.log(res.result.value);
+        client.close();
+
+      }).catch((err) => {
+        console.error(err);
         client.close();
       });
     });
@@ -60,7 +65,6 @@ CDP(options, (client) => {
     Page.enable(),
     DOM.enable()
   ]).then(() => {
-
     Page.navigate({
       url: 'https://tachesimazzoca.github.io/crx-pwgen/popup.html'
     });

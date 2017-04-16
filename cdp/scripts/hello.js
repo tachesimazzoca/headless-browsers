@@ -14,13 +14,13 @@ CDP(options, (client) => {
   Promise.all([
     Runtime.enable()
   ]).then(() => {
-
-    Runtime.evaluate({
+    return Runtime.evaluate({
       expression: 'var f = function(a, b) { return a + b; }; f(1, 2);'
-    }).then((result) => {
-      console.log(result.result);
-      client.close();
     });
+
+  }).then((res) => {
+    console.log(res.result);
+    client.close();
 
   }).catch((err) => {
     console.error(err);
